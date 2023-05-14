@@ -7,6 +7,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -60,18 +61,11 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property string $phone
  * @property string|null $deleted_at
  * @property int $location_id
- * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
- * @property-read Collection<int, \App\Models\Permission> $permissions
- * @property-read Collection<int, \App\Models\Role> $roles
- * @property-read Collection<int, PersonalAccessToken> $tokens
- * @method static Builder|User whereDeletedAt($value)
  * @method static Builder|User whereGender($value)
  * @method static Builder|User whereLocationId($value)
  * @method static Builder|User wherePhone($value)
- * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
- * @property-read Collection<int, \App\Models\Permission> $permissions
- * @property-read Collection<int, \App\Models\Role> $roles
- * @property-read Collection<int, PersonalAccessToken> $tokens
+ * @property-read Location|null $location
+ * @method static Builder|User whereDeletedAt($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable  implements LaratrustUser
@@ -109,4 +103,16 @@ class User extends Authenticatable  implements LaratrustUser
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    /**
+     * User Location relationship
+     * @return BelongsTo
+     */
+    public function location(): BelongsTo
+    {
+        return $this->BelongsTo(Location::class);
+    }
+
+
 }
