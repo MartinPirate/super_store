@@ -16,14 +16,14 @@ class SupplierTableSeeder extends Seeder
 
         $supplier->name = "Mark Logistics";
         $supplier->phone = "254701020304";
-        $supplier->location = "Nakuru";
+        $supplier->location_id = 4;
         $supplier->supermarket_id = 1;
         $supplier->save();
 
 
         $supplier->name = "Martin May";
         $supplier->phone = "254701020890";
-        $supplier->location = "Nyeri";
+        $supplier->location_id = 3;
         $supplier->supermarket_id = 2;
         $supplier->save();
 

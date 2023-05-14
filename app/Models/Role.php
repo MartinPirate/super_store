@@ -24,6 +24,9 @@ use Laratrust\Models\Role as RoleModel;
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereUpdatedAt($value)
+ * @property string|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Permission> $permissions
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereDeletedAt($value)
  * @mixin \Eloquent
  */
 class Role extends RoleModel

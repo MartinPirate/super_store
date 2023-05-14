@@ -56,6 +56,18 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereSupermarketId($value)
  * @method static Builder|User whereUpdatedAt($value)
+ * @property string $gender
+ * @property string $phone
+ * @property string|null $deleted_at
+ * @property int $location_id
+ * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
+ * @property-read Collection<int, \App\Models\Permission> $permissions
+ * @property-read Collection<int, \App\Models\Role> $roles
+ * @property-read Collection<int, PersonalAccessToken> $tokens
+ * @method static Builder|User whereDeletedAt($value)
+ * @method static Builder|User whereGender($value)
+ * @method static Builder|User whereLocationId($value)
+ * @method static Builder|User wherePhone($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable  implements LaratrustUser

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone')->unique();
-            $table->string('location');
             $table->foreignIdFor(Supermarket::class);
             $table->timestamps();
             $table->softDeletes();

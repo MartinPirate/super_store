@@ -27,6 +27,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Supplier wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Supplier whereSupermarketId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Supplier whereUpdatedAt($value)
+ * @property int $location_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Supplier whereLocationId($value)
  * @mixin \Eloquent
  */
 class Supplier extends Model

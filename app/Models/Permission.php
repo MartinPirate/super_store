@@ -24,6 +24,9 @@ use Laratrust\Models\Permission as PermissionModel;
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereUpdatedAt($value)
+ * @property string|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Role> $roles
+ * @method static \Illuminate\Database\Eloquent\Builder|Permission whereDeletedAt($value)
  * @mixin \Eloquent
  */
 class Permission extends PermissionModel

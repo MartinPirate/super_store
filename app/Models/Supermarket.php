@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Supermarket whereLocation($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Supermarket whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Supermarket whereUpdatedAt($value)
+ * @property int $location_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Supermarket whereLocationId($value)
  * @mixin \Eloquent
  */
 class Supermarket extends Model

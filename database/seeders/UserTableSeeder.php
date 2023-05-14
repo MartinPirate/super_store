@@ -25,7 +25,7 @@ class UserTableSeeder extends Seeder
         $admin->email = "admin@superstore.test";
         $admin->gender = "Female";
         $admin->phone = "254711224455";
-        $admin->location = "Naiorbi";
+        $admin->location_id = 1;
         $admin->password = Hash::make('P@ssw0rd');
         $admin->save();
 
@@ -39,7 +39,7 @@ class UserTableSeeder extends Seeder
         $manager->name = "Manager SuperStore";
         $manager->gender = "Male";
         $manager->email = "manager@superstore.test";
-        $manager->location = "Naiorbi";
+        $manager->location_id = 2;
         $manager->phone = "254711288955";
         $manager->password = Hash::make('P@ssw0rd');
 
@@ -53,7 +53,7 @@ class UserTableSeeder extends Seeder
         $manager2 = new User();
         $manager2->name = "Manager newstore";
         $manager2->gender = "Female";
-        $manager2->location = "Naiorbi";
+        $manager2->location_id = 3;
         $manager2->email = "manager@newstore.test";
         $manager2->phone = "254711228877";
         $manager2->password = Hash::make('P@ssw0rd');
@@ -73,7 +73,7 @@ class UserTableSeeder extends Seeder
         $cashier->email = "cashier_a@newstore.test";
         $cashier->gender = "Female";
         $cashier->phone = "254701000090";
-        $cashier->location = "Naiorbi";
+        $cashier->location_id =2;
         $cashier->password = Hash::make("P@ssw0rd");
 
         $cashier->supermarket_id = 2;
@@ -88,7 +88,7 @@ class UserTableSeeder extends Seeder
         $cashierMike->email = "mike@superstore.test";
         $cashierMike->gender = "Male";
         $cashierMike->phone = "254701009009";
-        $cashierMike->location = "Nairobi";
+        $cashierMike->location_id = 3;
         $cashierMike->password = Hash::make("P@ssw0rd");
 
         $cashierMike->supermarket_id = 1;
@@ -106,7 +106,7 @@ class UserTableSeeder extends Seeder
         $backOfficeSuperStore->name = "Back Super";
         $backOfficeSuperStore->email = "backsupper@superstore.test";
         $backOfficeSuperStore->gender = "Male";
-        $backOfficeSuperStore->location = "Nairobi";
+        $backOfficeSuperStore->location_id = 4;
         $backOfficeSuperStore->phone = "254701909070";
         $backOfficeSuperStore->password = Hash::make("P@ssw0rd");
 
@@ -122,7 +122,7 @@ class UserTableSeeder extends Seeder
         $backStoreNewStore->email = "bmanager@new.test";
         $backStoreNewStore->gender = "Female";
         $backStoreNewStore->phone = "254701999008";
-        $backStoreNewStore->location = "Nairobi";
+        $backStoreNewStore->location_id =2;
 
         $backStoreNewStore->password = Hash::make("P@ssw0rd");
 
