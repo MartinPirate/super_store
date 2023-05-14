@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 interface SupermarketRepositoryInterface
 {
 
-    public function index(): JsonResponse;
+    public function getList(): JsonResponse;
 
     public function getSupermarketById(int $id): JsonResponse;
 
@@ -19,7 +19,8 @@ interface SupermarketRepositoryInterface
 
     public function getSupermarketsByLocation(int $locationId) : JsonResponse;
 
-    public function getSuperMarketByManagerId(int $managerId) : JsonResponse;
+    public function getSupermarketByManagerId(int $managerId) : JsonResponse;
+
 
 
 }

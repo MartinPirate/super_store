@@ -2,7 +2,9 @@
 
 namespace App\Transformers;
 
-class SupermarketTransformer
+use League\Fractal\TransformerAbstract;
+
+class SupermarketTransformer extends TransformerAbstract
 {
 
 }
