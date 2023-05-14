@@ -18,6 +18,9 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
-        "@inertiajs/vue3": "^1.0.6"
+        "@inertiajs/vue3": "^1.0.6",
+        "apexcharts": "^3.40.0",
+        "flowbite": "^1.6.4",
+        "flowbite-vue": "0.0.10"
     }
 }
