@@ -68,6 +68,10 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|User whereGender($value)
  * @method static Builder|User whereLocationId($value)
  * @method static Builder|User wherePhone($value)
+ * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
+ * @property-read Collection<int, \App\Models\Permission> $permissions
+ * @property-read Collection<int, \App\Models\Role> $roles
+ * @property-read Collection<int, PersonalAccessToken> $tokens
  * @mixin \Eloquent
  */
 class User extends Authenticatable  implements LaratrustUser
