@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(LocationTableSeeder::class);
         $this->call(LaratrustSeeder::class);
         $this->call(SuperMarketTableSeeder::class);
         $this->call(UserTableSeeder::class);

@@ -15,13 +15,12 @@ class SuperMarketTableSeeder extends Seeder
     {
         $superMarket = new Supermarket();
         $superMarket->name = "Super Store";
-        //todo add a location  dropdown
-        $superMarket->location = "Nairobi";
+        $superMarket->location_id =1;
         $superMarket->save();
 
 
         $superMarket->name= "new store";
-        $superMarket->location = "Thika";
+        $superMarket->location_id = 2;
         $superMarket->save();
 
     }
