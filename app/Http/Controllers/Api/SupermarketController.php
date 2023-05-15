@@ -48,10 +48,19 @@ class SupermarketController extends Controller
      */
     public function store(CreateSupermarketRequest $request): JsonResponse
     {
+
         $data = [
             'name' => $request->get('name'),
             'location_id' => $request->get('location_id')
         ];
+
+     /*
+      *   $managerId = $request->get('manager_id');
+      if ($managerId)
+        {
+           $data['manager_id'] = $managerId;
+        }*/
+
 
         return $this->service->createSupermarket($data);
     }

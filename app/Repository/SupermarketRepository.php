@@ -61,12 +61,19 @@ class SupermarketRepository implements SupermarketRepositoryInterface
      */
     public function storeSuperMarket(array $supermarketData): JsonResponse
     {
+       // $managerId = $supermarketData['manager_id'];
+
         try {
             $supermarket = Supermarket::create($supermarketData);
 
         } catch (Exception $exception) {
             return $this->error($exception->getMessage(), $exception->getCode());
         }
+      /*  if ($managerId) {
+            $this->setManager($supermarket->id, $managerId);
+
+        }*/
+
         return fractal()
             ->item($supermarket, new SupermarketTransformer)
             ->respond(200, [], JSON_PRETTY_PRINT);
@@ -162,6 +169,29 @@ class SupermarketRepository implements SupermarketRepositoryInterface
             ->collection($supermarkets, new SupermarketTransformer())
             ->respond(200, [], JSON_PRETTY_PRINT);
 
+    }
+
+    /**
+     * Set a Manager
+     * @param int $supermarketId
+     * @param int $userId
+     * @return JsonResponse
+     */
+    public function setManager(int $supermarketId, int $userId): JsonResponse
+    {
+        makeManager($userId);
+
+        try {
+            $user = User::whereId($userId)->first();
+            $user->update([
+                'supermarket_id' => $supermarketId
+            ]);
+
+        } catch (ModelNotFoundException $exception) {
+            return $this->error("User does not exist in the database");
+        }
+
+        return $this->success("manager set Successfully");
     }
 
 

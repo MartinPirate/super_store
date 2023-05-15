@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Models\User;
 use Illuminate\Support\Carbon;
 
 if (!function_exists('format_date')) {
@@ -19,8 +20,7 @@ if (!function_exists('format_date')) {
     }
 }
 
-if (!function_exists('getCount'))
-{
+if (!function_exists('getCount')) {
     /**
      * Get Json Data Count
      * @param $data
@@ -30,5 +30,26 @@ if (!function_exists('getCount'))
     {
         $data = json_decode($data, true);
         return count($data);
+    }
+}
+
+if (!function_exists('makeManager')) {
+    /**
+     * Set the new Role to Manager
+     * @param $userId
+     * @return bool
+     */
+    function makeManager($userId): bool
+    {
+        $user = User::whereId($userId)->first();
+        if ($user->hasRole('manager')) {
+            return true;
+        } else {
+            $user->addRole('manager');
+
+        }
+        return true;
+
+
     }
 }

@@ -21,6 +21,8 @@ interface SupermarketRepositoryInterface
 
     public function getSupermarketByManagerId(int $managerId) : JsonResponse;
 
+    public function setManager(int $supermarketId, int $userId) : JsonResponse;
+
 
 
 }
