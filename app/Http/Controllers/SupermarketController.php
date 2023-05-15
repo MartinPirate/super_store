@@ -19,7 +19,7 @@ class SupermarketController extends Controller
     }
 
     /**
-     *Get Supermarkets
+     *Get Supermarkets Page
      * @return Response
      */
     public function index(): Response
@@ -43,16 +43,6 @@ class SupermarketController extends Controller
         return $this->service->createSupermarket($data);
     }
 
-
-    /**
-     * Get Supermarket BY Id
-     * @param $id
-     * @return JsonResponse
-     */
-    public function show($id): JsonResponse
-    {
-        return $this->service->getSupermarketById($id);
-    }
 
     /**
      * Update Supermarket

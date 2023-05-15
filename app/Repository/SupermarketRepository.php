@@ -47,6 +47,7 @@ class SupermarketRepository implements SupermarketRepositoryInterface
         }
 
         return fractal()
+            ->parseIncludes(['employees', 'suppliers'])
             ->item($supermarket, new SupermarketTransformer)
             ->respond(200, [], JSON_PRETTY_PRINT);
 
@@ -150,8 +151,7 @@ class SupermarketRepository implements SupermarketRepositoryInterface
         try {
             $manager = User::whereId($managerId)->first();
 
-        }catch (ModelNotFoundException $exception)
-        {
+        } catch (ModelNotFoundException $exception) {
             return $this->error("Manager Not Found");
 
         }
