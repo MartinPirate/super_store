@@ -30,22 +30,7 @@ class SupermarketController extends Controller
 
 
 
-    /**
-     * Update Supermarket
-     * @param UpdateSupermarketRequest $request
-     * @return JsonResponse
-     */
-    public function update(UpdateSupermarketRequest $request): JsonResponse
-    {
-        $supermarketId = $request->get('id');
 
-        $data = [
-            'name' => $request->get('name'),
-            'location_id' => $request->get('location_id'),
-        ];
-        return $this->service->updateSupermarket($supermarketId, $data);
-
-    }
 
     /**
      * Delete a Supermarket

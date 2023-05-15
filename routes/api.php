@@ -22,6 +22,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/', [SupermarketController::class, 'index'])->name('supermarkets.get');
         Route::post('/', [SupermarketController::class, 'store'])->name('supermarket.store');
         Route::get('/{id}', [SupermarketController::class, 'show'])->name('supermarket');
+        Route::post('update/{id}', [SupermarketController::class, 'update'])->name('supermarket.update');
 
     });
 

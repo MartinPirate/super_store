@@ -78,6 +78,40 @@ export const useSupermarketStore = defineStore('supermarkets', {
             }
         },
 
+        async updateSupermarket(supermarket) {
+
+            try {
+                await fetch(`/api/v1/supermarkets/update/${supermarket.id}`, {
+                    method: "POST",
+                    body: JSON.stringify(supermarket),
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                }).then((response) => {
+                    if (response.ok) {
+                        return response.json().then((data) => {
+
+                            Swal.fire("Success", "Supermarket Updated Successfully", "success");
+
+                            this.supermarkets = this.supermarkets.map((u) => {
+                                if (u.id === supermarket.id) {
+                                    console.log(data.data)
+                                    return data.data;
+                                }
+                                return u;
+                            });
+                        });
+                    } else {
+                        return response.json().then((data) => {
+                            Swal.fire("Error", data.message, "error");
+                        });
+                    }
+                })
+            } catch (error) {
+
+            }
+        },
+
 
     }
 

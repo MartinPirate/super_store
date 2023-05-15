@@ -61,7 +61,7 @@ class SupermarketRepository implements SupermarketRepositoryInterface
      */
     public function storeSuperMarket(array $supermarketData): JsonResponse
     {
-       // $managerId = $supermarketData['manager_id'];
+        // $managerId = $supermarketData['manager_id'];
 
         try {
             $supermarket = Supermarket::create($supermarketData);
@@ -69,10 +69,10 @@ class SupermarketRepository implements SupermarketRepositoryInterface
         } catch (Exception $exception) {
             return $this->error($exception->getMessage(), $exception->getCode());
         }
-      /*  if ($managerId) {
-            $this->setManager($supermarket->id, $managerId);
+        /*  if ($managerId) {
+              $this->setManager($supermarket->id, $managerId);
 
-        }*/
+          }*/
 
         return fractal()
             ->item($supermarket, new SupermarketTransformer)
@@ -90,14 +90,19 @@ class SupermarketRepository implements SupermarketRepositoryInterface
     {
         try {
             $superMarket = Supermarket::whereId($supermarketId)->first();
-            $superMarket?->update($supermarketData);
+            $superMarket->update($supermarketData);
+            $supermarket = $superMarket->first();
+
 
         } catch (ModelNotFoundException $exception) {
             return $this->error("Supermarket Not Found", 404);
         }
 
+        return fractal()
+            ->item($supermarket, new SupermarketTransformer)
+            ->respond(200, [], JSON_PRETTY_PRINT);
 
-        return $this->success("Supermarket Updated Successfully");
+
     }
 
     /**
