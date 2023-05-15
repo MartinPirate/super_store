@@ -37,6 +37,7 @@ class Location extends Model
 {
     use HasFactory;
 
+    protected $fillable = [];
 
     /**
      * location -supermarkets relationships
