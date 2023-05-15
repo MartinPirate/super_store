@@ -23,6 +23,7 @@ Route::prefix('v1')->group(function () {
         Route::post('/', [SupermarketController::class, 'store'])->name('supermarket.store');
         Route::get('/{id}', [SupermarketController::class, 'show'])->name('supermarket');
         Route::post('update/{id}', [SupermarketController::class, 'update'])->name('supermarket.update');
+        Route::delete('/{id}', [SupermarketController::class, 'destroy'])->name('supermarket.destroy');
 
     });
 

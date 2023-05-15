@@ -30,17 +30,4 @@ class SupermarketController extends Controller
 
 
 
-
-
-    /**
-     * Delete a Supermarket
-     * @param int $id
-     * @return JsonResponse
-     */
-    public function destroy(int $id): JsonResponse
-    {
-        return $this->service->deleteSupermarket($id);
-    }
-
-
 }

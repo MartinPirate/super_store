@@ -112,6 +112,33 @@ export const useSupermarketStore = defineStore('supermarkets', {
             }
         },
 
+        async deleteSupermarket(id) {
+            try {
+
+                await fetch(`/api/v1/supermarkets/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                }).then((response) => {
+                    if (response.ok) {
+                        return response.json().then((data) => {
+                            Swal.fire("Success", "Supermarket Deleted Successfully", "success");
+                            this.supermarkets = this.supermarkets.filter((u) => u.id !== id);
+                        });
+                    } else {
+                        return response.json().then((data) => {
+                            Swal.fire("Error", data.message, "error");
+                        });
+                    }
+                })
+            } catch (error) {
+
+            }
+        }
+
+
+
 
     }
 
