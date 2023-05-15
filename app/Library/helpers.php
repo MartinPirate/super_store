@@ -15,7 +15,7 @@ if (!function_exists('format_date')) {
         if (!$date) {
             return 'No date Found';
         }
-        return $date->format('j-F-  H:i:s');
+        return $date->format('j-F-Y');
     }
 }
 

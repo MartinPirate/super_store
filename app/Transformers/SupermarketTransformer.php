@@ -37,6 +37,7 @@ class SupermarketTransformer extends TransformerAbstract
             'id' => $supermarket->id,
             'name' => $supermarket->name,
             'location' => $supermarket->location()->pluck('name')['0'],
+            'manager' => $supermarket->manager()->pluck('name')['0'],
             'created_at' => format_date($supermarket->created_at),
             'updated_at' => format_date($supermarket->updated_at),
         ];
