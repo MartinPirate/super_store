@@ -24,11 +24,8 @@ class SupermarketController extends Controller
      */
     public function index(): Response
     {
-        $supermarkets = $this->service->getSupermarkets();
 
-        return Inertia::render('Users/Index', [
-            'supermarkets' => $supermarkets
-        ]);
+        return Inertia::render('Supermarkets/Index');
     }
 
     /**

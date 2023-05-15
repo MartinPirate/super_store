@@ -241,7 +241,7 @@ onMounted(() => {
                 colors: ['#1A56DB', '#FDBA8C'],
                 series: [
                     {
-                        name: 'Desktop PC',
+                        name: 'Fresh Foods',
                         color: '#1A56DB',
                         data: [
                             {x: '01 Feb', y: 170},
@@ -254,7 +254,7 @@ onMounted(() => {
                         ]
                     },
                     {
-                        name: 'Phones',
+                        name: 'Beverages',
                         color: '#FDBA8C',
                         data: [
                             {x: '01 Feb', y: 120},
@@ -267,7 +267,7 @@ onMounted(() => {
                         ]
                     },
                     {
-                        name: 'Gaming/Console',
+                        name: 'Cereals',
                         color: '#17B0BD',
                         data: [
                             {x: '01 Feb', y: 220},

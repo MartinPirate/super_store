@@ -18,7 +18,7 @@ class SuperMarketTableSeeder extends Seeder
         $superMarket->location_id =1;
         $superMarket->save();
 
-
+        $superMarket = new Supermarket();
         $superMarket->name= "new store";
         $superMarket->location_id = 2;
         $superMarket->save();

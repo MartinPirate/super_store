@@ -21,6 +21,10 @@
         "@inertiajs/vue3": "^1.0.6",
         "apexcharts": "^3.40.0",
         "flowbite": "^1.6.4",
-        "flowbite-vue": "0.0.10"
+        "flowbite-vue": "0.0.10",
+        "pinia": "^2.0.36",
+        "sweetalert2": "^11.7.5",
+        "vue-cookies": "^1.8.3",
+        "vue-loading-overlay": "^6.0.3"
     }
 }
