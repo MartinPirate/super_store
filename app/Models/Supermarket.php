@@ -42,6 +42,11 @@ class Supermarket extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'location_id'
+    ];
+
 
     /**
      * Location Supermarket definition
@@ -58,7 +63,7 @@ class Supermarket extends Model
      */
     public function manager(): HasOne
     {
-        return $this->hasOne(User::class)->whereHas('roles', function ($query){
+        return $this->hasOne(User::class)->whereHas('roles', function ($query) {
             $query->where('name', 'manager');
         });
     }
@@ -69,8 +74,8 @@ class Supermarket extends Model
      */
     public function employees(): HasMany
     {
-        return $this->hasMany(User::class)->whereHas('roles', function ($query){
-            $query->where('name', 'cashier') ||    $query->where('name', 'backoffice') ;
+        return $this->hasMany(User::class)->whereHas('roles', function ($query) {
+            $query->where('name', 'cashier') || $query->where('name', 'backoffice');
         });
     }
 

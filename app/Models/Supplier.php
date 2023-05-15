@@ -39,6 +39,8 @@ class Supplier extends Model
 {
     use HasFactory;
 
+    protected $fillable = [];
+
     /**
      * Reverse supplier-supermarket relationship definition
      * @return BelongsTo

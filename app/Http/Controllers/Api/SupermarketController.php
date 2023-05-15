@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateSupermarketRequest;
 use App\Services\SupermarketService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -37,6 +38,22 @@ class SupermarketController extends Controller
     {
         return $this->service->getSupermarketById($id);
 
+    }
+
+
+    /**
+     * Create a Supermarket
+     * @param CreateSupermarketRequest $request
+     * @return JsonResponse
+     */
+    public function store(CreateSupermarketRequest $request): JsonResponse
+    {
+        $data = [
+            'name' => $request->get('name'),
+            'location_id' => $request->get('location_id')
+        ];
+
+        return $this->service->createSupermarket($data);
     }
 
 }
