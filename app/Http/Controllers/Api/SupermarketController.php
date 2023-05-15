@@ -106,9 +106,12 @@ class SupermarketController extends Controller
         $supermarketId = $request->get('id');
         $supplierCSV = $request->file('file');
 
+        $supplierCSV->store('csvfiles', 'local');
+
+
         $this->supplierService->uploadSuppliers($supermarketId, $supplierCSV);
 
-        $path = $supplierCSV->store('csvfiles', 'local');
+
     }
 
 }

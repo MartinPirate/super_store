@@ -149,7 +149,9 @@ export const useSupermarketStore = defineStore('supermarkets', {
 
                 }).then((response) => {
 
-                    if (response.data.success === true) {
+                    console.log(response)
+
+                    if (response.status === 200) {
                         //alert
                         Swal.fire("Success", "Suppliers Uploaded Successfully", "success");
 
@@ -158,13 +160,11 @@ export const useSupermarketStore = defineStore('supermarkets', {
                     }
                 });
             } catch (error) {
-                this.errors.push(error)
+                this.error = error
             } finally {
                 this.loading = false
             }
         },
-
-
 
 
     }
