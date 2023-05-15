@@ -135,7 +135,34 @@ export const useSupermarketStore = defineStore('supermarkets', {
             } catch (error) {
 
             }
-        }
+        },
+
+        async uploadAttachment(attachment) {
+            try {
+                console.log(attachment);
+
+                await axios.post(`/api/v1/supermarkets/upload-suppliers/`, attachment, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        'Accept': 'application/json',
+                    },
+
+                }).then((response) => {
+
+                    if (response.data.success === true) {
+                        //alert
+                        Swal.fire("Success", "Suppliers Uploaded Successfully", "success");
+
+                    } else {
+                        this.errors = response.data.message
+                    }
+                });
+            } catch (error) {
+                this.errors.push(error)
+            } finally {
+                this.loading = false
+            }
+        },
 
 
 

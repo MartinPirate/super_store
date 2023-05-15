@@ -1,6 +1,8 @@
 <?php
 
 
+use App\Models\Location;
+use App\Models\Supplier;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 
@@ -50,6 +52,38 @@ if (!function_exists('makeManager')) {
         }
         return true;
 
+    }
+
+}
+
+if (!function_exists('validateSupplierCSVRow')) {
+    function validateSupplierCSVRow($row): bool
+    {
+        $supplierName = $row['name'];
+        $supplierPhone = $row['phone'];
+
+        // check if the supplier with the given name and phone exists in the database
+        $supplier = Supplier::where('name', $supplierName)
+            ->where('phone', $supplierPhone)
+            ->first();
+
+        if ($supplier) {
+            return true; // validation passed
+        } else {
+            return false; // validation failed
+        }
+    }
+}
+
+if (!function_exists('createLocationFromCSV'))
+{
+    function createLocationFromCSV(string $location)
+    {
+        $location = Location::firstOrCreate([
+            'name' => $location
+        ]);
+        return $location->id;
 
     }
 }
+

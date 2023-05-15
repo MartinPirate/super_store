@@ -39,7 +39,12 @@ class Supplier extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'name',
+        'phone',
+        'location_id',
+        'supermarket_id'
+    ];
 
     /**
      * Reverse supplier-supermarket relationship definition
