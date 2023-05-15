@@ -4,18 +4,24 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateSupermarketRequest;
+use App\Http\Requests\UpdateSupermarketRequest;
+use App\Http\Requests\UploadSupplierCSVRequest;
 use App\Services\SupermarketService;
+use App\Services\SupplierService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Spatie\SimpleExcel\SimpleExcelReader;
 
 class SupermarketController extends Controller
 {
 
     protected SupermarketService $service;
+    protected SupplierService $supplierService;
 
-    public function __construct(SupermarketService $supermarketService)
+    public function __construct(SupermarketService $supermarketService, SupplierService $supplierService)
     {
         $this->service = $supermarketService;
+        $this->supplierService = $supplierService;
     }
 
     /**
@@ -48,12 +54,61 @@ class SupermarketController extends Controller
      */
     public function store(CreateSupermarketRequest $request): JsonResponse
     {
+
         $data = [
             'name' => $request->get('name'),
             'location_id' => $request->get('location_id')
         ];
 
+        /*
+         *   $managerId = $request->get('manager_id');
+         if ($managerId)
+           {
+              $data['manager_id'] = $managerId;
+           }*/
+
+
         return $this->service->createSupermarket($data);
+    }
+
+
+    /**
+     * Update Supermarket
+     * @param UpdateSupermarketRequest $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function update(UpdateSupermarketRequest $request, int $id): JsonResponse
+    {
+
+        $data = [
+            'name' => $request->get('name'),
+            'location_id' => $request->get('location_id'),
+        ];
+        return $this->service->updateSupermarket($id, $data);
+
+    }
+
+    /**
+     * Delete a Supermarket
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function destroy(int $id): JsonResponse
+    {
+        return $this->service->deleteSupermarket($id);
+    }
+
+
+    public function uploadSuppliers(UploadSupplierCSVRequest $request)
+    {
+
+        $supermarketId = $request->get('id');
+        $supplierCSV = $request->file('file');
+
+        $this->supplierService->uploadSuppliers($supermarketId, $supplierCSV);
+
+        $path = $supplierCSV->store('csvfiles', 'local');
     }
 
 }

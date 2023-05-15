@@ -78,6 +78,94 @@ export const useSupermarketStore = defineStore('supermarkets', {
             }
         },
 
+        async updateSupermarket(supermarket) {
+
+            try {
+                await fetch(`/api/v1/supermarkets/update/${supermarket.id}`, {
+                    method: "POST",
+                    body: JSON.stringify(supermarket),
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                }).then((response) => {
+                    if (response.ok) {
+                        return response.json().then((data) => {
+
+                            Swal.fire("Success", "Supermarket Updated Successfully", "success");
+
+                            this.supermarkets = this.supermarkets.map((u) => {
+                                if (u.id === supermarket.id) {
+                                    console.log(data.data)
+                                    return data.data;
+                                }
+                                return u;
+                            });
+                        });
+                    } else {
+                        return response.json().then((data) => {
+                            Swal.fire("Error", data.message, "error");
+                        });
+                    }
+                })
+            } catch (error) {
+
+            }
+        },
+
+        async deleteSupermarket(id) {
+            try {
+
+                await fetch(`/api/v1/supermarkets/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                }).then((response) => {
+                    if (response.ok) {
+                        return response.json().then((data) => {
+                            Swal.fire("Success", "Supermarket Deleted Successfully", "success");
+                            this.supermarkets = this.supermarkets.filter((u) => u.id !== id);
+                        });
+                    } else {
+                        return response.json().then((data) => {
+                            Swal.fire("Error", data.message, "error");
+                        });
+                    }
+                })
+            } catch (error) {
+
+            }
+        },
+
+        async uploadAttachment(attachment) {
+            try {
+                console.log(attachment);
+
+                await axios.post(`/api/v1/supermarkets/upload-suppliers/`, attachment, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        'Accept': 'application/json',
+                    },
+
+                }).then((response) => {
+
+                    if (response.data.success === true) {
+                        //alert
+                        Swal.fire("Success", "Suppliers Uploaded Successfully", "success");
+
+                    } else {
+                        this.errors = response.data.message
+                    }
+                });
+            } catch (error) {
+                this.errors.push(error)
+            } finally {
+                this.loading = false
+            }
+        },
+
+
+
 
     }
 

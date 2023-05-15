@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpFoundation\Response;
 
-class UpdateSupermarketRequest extends FormRequest
+class UploadSupplierCSVRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,10 +27,10 @@ class UpdateSupermarketRequest extends FormRequest
     {
         return [
             'id' => 'required|exists:supermarkets,id',
-            'name' => 'required',
-            'location_id' => 'required|exists:locations,id'
+            'file' => 'required|mimes:csv,xlsx'
         ];
     }
+
 
     /**
      * Explicit definition of Error Messages
@@ -41,9 +41,8 @@ class UpdateSupermarketRequest extends FormRequest
         return [
             'id.required' => 'Supermarket Id is required.',
             'id.exists' => 'Supermarket with that Id does not exist.',
-            'name.required' => 'Supermarket Name is required.',
-            'location_id.required' => 'Supermarket Location is required.',
-            'location_id.exits' => 'The Selected Supermarket Location is Not Available.',
+            'file.required' => 'Supplier CSV file  is required.',
+            'file.mimes' => 'Upload a valid file format, CSV required.',
 
         ];
     }
