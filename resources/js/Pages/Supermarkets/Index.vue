@@ -5,17 +5,30 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import {ref} from "vue";
 import {storeToRefs} from "pinia";
 import {useSupermarketStore} from "@/Store/SupermarketStore.js";
+import DialogModal from "@/Components/DialogModal.vue";
 
+/*modals variables*/
+let showDetailsModal = ref(false);
 let showCreateModal = ref(false);
 let showEditModal = ref(false);
 let showDeleteModal = ref(false);
 
-const {supermarkets, loading, error} = storeToRefs(useSupermarketStore());
-const  {fetchSupermarkets} = useSupermarketStore();
+/*stores manager*/
+const {supermarkets, supermarket, loading, error} = storeToRefs(useSupermarketStore());
+const {fetchSupermarkets, fetchSupermarketById} = useSupermarketStore();
 
-  fetchSupermarkets();
+fetchSupermarkets();
 
 
+const openDetailsModal = async (id) => {
+    await fetchSupermarketById(id)
+    console.log(supermarket)
+    showDetailsModal.value = true;
+};
+
+const closeDetailsModal = () => {
+    showDetailsModal.value = false;
+};
 
 
 </script>
@@ -129,7 +142,7 @@ const  {fetchSupermarkets} = useSupermarketStore();
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                  Updated At
+                                    Updated At
                                 </th>
 
                                 <th scope="col"
@@ -139,72 +152,180 @@ const  {fetchSupermarkets} = useSupermarketStore();
                             </tr>
                             </thead>
 
-                                                    <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700"
-                                                           v-for="item in supermarkets" :key="item.id">
-                                                    <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                                        <td class="w-4 p-4">
-                                                            <div class="flex items-center">
-                                                                <input id="checkbox-194556" aria-describedby="checkbox-1" type="checkbox"
-                                                                       class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
-                                                                <label for="checkbox-194556" class="sr-only">checkbox</label>
-                                                            </div>
-                                                        </td>
-                                                        <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                                            <div class="text-base font-semibold text-gray-900 dark:text-white">{{ item.name }}
-                                                            </div>
-                                                            <div class="text-sm font-normal text-gray-500 dark:text-gray-400">{{ item.name }}
-                                                            </div>
-                                                        </td>
-                                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                           {{item.location}}
-                                                        </td>
-                                                        <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">
-                                                            {{item.manager}}
-                                                        </td>
-                                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                          {{item.created_at}}
-                                                        </td>
-                                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                           {{item.updated_at}}
-                                                        </td>
-                                                        <td class="p-4 space-x-2 whitespace-nowrap">
-                                                            <button type="button" id="updateProductButton"
-                                                                    @click="openEditModal(item)"
-                                                                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-primary-300">
-                                                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
-                                                                    <path fill-rule="evenodd"
-                                                                          d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                                                          clip-rule="evenodd"></path>
-                                                                </svg>
-                                                                Update
-                                                            </button>
-                                                            <button type="button" id="deleteProductButton"
-                                                                    @click="openDeleteModal(item.id)"
-                                                                    data-drawer-target="drawer-delete-product-default"
-                                                                    data-drawer-show="drawer-delete-product-default"
-                                                                    aria-controls="drawer-delete-product-default" data-drawer-placement="right"
-                                                                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
-                                                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                                                                     xmlns="http://www.w3.org/2000/svg">
-                                                                    <path fill-rule="evenodd"
-                                                                          d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                                          clip-rule="evenodd"></path>
-                                                                </svg>
-                                                                Delete item
-                                                            </button>
-                                                        </td>
-                                                    </tr>
+                            <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700"
+                                   v-for="item in supermarkets" :key="item.id">
+                            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <td class="w-4 p-4"
+                                    @click="openDetailsModal(item.id)"
+                                >
+                                    <div class="flex items-center">
+                                        <input id="checkbox-194556" aria-describedby="checkbox-1" type="checkbox"
+                                               class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="checkbox-194556" class="sr-only">checkbox</label>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                    <div class="text-base font-semibold text-gray-900 dark:text-white">{{ item.name }}
+                                    </div>
+                                    <div class="text-sm font-normal text-gray-500 dark:text-gray-400">{{ item.name }}
+                                    </div>
+                                </td>
+                                <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ item.location }}
+                                </td>
+                                <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">
+                                    {{ item.manager }}
+                                </td>
+                                <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ item.created_at }}
+                                </td>
+                                <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ item.updated_at }}
+                                </td>
+                                <td class="p-4 space-x-2 whitespace-nowrap">
+                                    <button type="button" id="updateProductButton"
+                                            @click="openEditModal(item)"
+                                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-primary-300">
+                                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+                                            <path fill-rule="evenodd"
+                                                  d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                                  clip-rule="evenodd"></path>
+                                        </svg>
+                                        Update
+                                    </button>
+                                    <button type="button" id="deleteProductButton"
+                                            @click="openDeleteModal(item.id)"
+                                            data-drawer-target="drawer-delete-product-default"
+                                            data-drawer-show="drawer-delete-product-default"
+                                            aria-controls="drawer-delete-product-default" data-drawer-placement="right"
+                                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
+                                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                  clip-rule="evenodd"></path>
+                                        </svg>
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
 
-                                                    </tbody>
+                            </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
         </div>
+
+
+        <!--  Delete Modal  -->
+
+        <DialogModal :show="showDetailsModal" id="delete-user-modal">
+            <!-- Modal content -->
+            <template #title>
+                <div class="flex items-start justify-between p-5 border-b rounded-t dark:border-gray-700">
+                    <h3 class="text-xl font-semibold dark:text-white">
+                        {{ supermarket.name }} Details
+                    </h3>
+                    <button type="button"
+                            @click="closeDetailsModal"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white"
+                            data-modal-toggle="add-user-modal">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+            </template>
+
+            <!-- Modal body -->
+
+            <template #content>
+
+                <div class="p-2 pt-0 text-center">
+                    <div class="mt-2 ">
+                        <dl class="divide-y divide-gray-100">
+                            <div class="px-2 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Name</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                    {{ supermarket.name }}
+                                </dd>
+                            </div>
+                            <div class="px-2 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Location</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                    {{ supermarket.location }}
+                                </dd>
+                            </div>
+
+                            <div class="px-2 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Manager</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                    {{ supermarket.manager }}
+                                </dd>
+                            </div>
+
+                            <div class="px-2 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Created Date</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                    {{ supermarket.created_at }}
+                                </dd>
+                            </div>
+
+                            <div class="px-2 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Updated Date</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                    {{ supermarket.updated_at }}
+                                </dd>
+                            </div>
+
+                            <div class="px-2 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Employees</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
+                                    v-show="supermarket.employees.data">
+                                    <ul class="list-style-type: disc" v-for="item in supermarket.employees.data">
+                                        Name:
+                                        <li>{{ item.name }}, Phone: {{ item.phone }}, Location: {{ item.location }}</li>
+                                    </ul>
+                                </dd>
+                            </div>
+
+                            <div class="px-2 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                <dt class="text-sm font-medium leading-6 text-gray-900">Suppliers</dt>
+                                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
+                                    v-show="supermarket.suppliers.data.length !==0">
+                                    <ul class="list-none" v-for="item in supermarket.suppliers.data">
+                                        Name:
+                                        <li>{{ item.name }}, Phone: {{ item.phone }}, Location: {{ item.location }}</li>
+                                    </ul>
+                                </dd>
+                            </div>
+
+                        </dl>
+                    </div>
+
+                </div>
+            </template>
+
+            <!-- Modal footer -->
+            <template #footer>
+                <button
+                    @click="closeDetailsModal"
+                    class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+                    data-modal-toggle="delete-user-modal">
+                    close Modal
+                </button>
+
+            </template>
+
+        </DialogModal>
+
 
     </AuthenticatedLayout>
 

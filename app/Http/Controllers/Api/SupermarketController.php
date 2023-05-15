@@ -26,4 +26,17 @@ class SupermarketController extends Controller
         return $this->service->getSupermarkets();
 
     }
+
+
+    /**
+     * Get Supermarket BY Id
+     * @param $id
+     * @return JsonResponse
+     */
+    public function show($id): JsonResponse
+    {
+        return $this->service->getSupermarketById($id);
+
+    }
+
 }

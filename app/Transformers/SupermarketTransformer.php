@@ -3,6 +3,7 @@
 namespace App\Transformers;
 
 use App\Models\Supermarket;
+use League\Fractal\Resource\Collection;
 use League\Fractal\TransformerAbstract;
 
 class SupermarketTransformer extends TransformerAbstract
@@ -23,7 +24,8 @@ class SupermarketTransformer extends TransformerAbstract
      * @var array
      */
     protected array $availableIncludes = [
-        //
+        'employees',
+        'suppliers'
     ];
 
     /**
@@ -42,6 +44,26 @@ class SupermarketTransformer extends TransformerAbstract
             'updated_at' => format_date($supermarket->updated_at),
         ];
 
+    }
+
+    /**
+     * Load Supermarket with employees
+     * @param Supermarket $supermarket
+     * @return Collection
+     */
+    public function includeEmployees(Supermarket $supermarket): Collection
+    {
+        return $this->collection($supermarket->employees, new UserTransformer());
+    }
+
+    /**
+     * Load Supermarket with Suppliers
+     * @param Supermarket $supermarket
+     * @return Collection
+     */
+    public function includeSuppliers(Supermarket $supermarket): Collection
+    {
+        return $this->collection($supermarket->suppliers, new SupplierTransformer());
     }
 
 }

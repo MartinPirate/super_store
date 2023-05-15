@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     Route::prefix('supermarkets')->group(function () {
         Route::get('/', [SupermarketController::class, 'index']);
-
+        Route::get('/{id}', [SupermarketController::class, 'show']);
 
     });
 
