@@ -38,7 +38,10 @@ class UserTransformer extends TransformerAbstract
             'name' => $user->name,
             'email' => $user->email,
             'phone' => $user->phone,
+            'role' => $user->roles()->pluck('name')['0'],
             'location' => $user->location()->pluck('name')['0'],
+            'created_at' => format_date($user->created_at),
+            'updated_at' => format_date($user->updated_at),
         ];
     }
 }

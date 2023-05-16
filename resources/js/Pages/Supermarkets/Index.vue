@@ -152,6 +152,8 @@ const uploadSuppliers = async () => {
     formData.append('file', file);
     await uploadAttachment(formData);
 
+    closeCSVModal();
+
 
 }
 
