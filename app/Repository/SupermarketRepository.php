@@ -26,7 +26,7 @@ class SupermarketRepository implements SupermarketRepositoryInterface
     public function getList(): Collection
     {
 
-        return Supermarket::all();
+        return Supermarket::orderBy('name')->get();
     }
 
     /**

@@ -61,7 +61,7 @@ export const useSupermarketStore = defineStore('supermarkets', {
                     if (response.ok) {
                         return response.json().then((data) => {
                             Swal.fire("Success", "Supermarket Added Successfully", "success");
-                            this.supermarkets.unshift(data.data);
+                            this.supermarkets.push(data.data);
                         });
                     } else {
                         return response.json().then((data) => {
