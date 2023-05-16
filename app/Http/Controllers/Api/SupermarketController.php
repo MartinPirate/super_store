@@ -6,14 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateSupermarketRequest;
 use App\Http\Requests\UpdateSupermarketRequest;
 use App\Http\Requests\UploadSupplierCSVRequest;
+use App\Jobs\ProcessCsvUpload;
 use App\Services\SupermarketService;
 use App\Services\SupplierService;
+use App\Trait\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Spatie\SimpleExcel\SimpleExcelReader;
 
 class SupermarketController extends Controller
 {
+
+    use  ApiResponse;
 
     protected SupermarketService $service;
     protected SupplierService $supplierService;
@@ -100,16 +104,18 @@ class SupermarketController extends Controller
     }
 
 
-    public function uploadSuppliers(UploadSupplierCSVRequest $request)
+    public function uploadSuppliers(UploadSupplierCSVRequest $request): JsonResponse
     {
 
         $supermarketId = $request->get('id');
         $supplierCSV = $request->file('file');
 
-        $supplierCSV->store('csvfiles', 'local');
+        $fileName = $supplierCSV->store('csvfiles', 'local');
 
+        $job = new ProcessCsvUpload($supermarketId, $fileName);
+        dispatch($job);
 
-        $this->supplierService->uploadSuppliers($supermarketId, $supplierCSV);
+        return $this->success("CSV data has been queued for processing.");
 
 
     }

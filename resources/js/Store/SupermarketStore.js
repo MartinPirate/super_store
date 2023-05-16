@@ -150,7 +150,7 @@ export const useSupermarketStore = defineStore('supermarkets', {
                 }).then((response) => {
 
                     if (response.status === 200) {
-                        Swal.fire("Success", "Suppliers Uploaded Successfully", "success");
+                        Swal.fire("Success", "CSV data has been uploaded and Queued for processing", "success");
 
                     } else {
                         this.errors = response.data.message
