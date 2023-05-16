@@ -64,13 +64,13 @@ class SupermarketController extends Controller
             'location_id' => $request->get('location_id')
         ];
 
+
         /*
          *   $managerId = $request->get('manager_id');
          if ($managerId)
            {
               $data['manager_id'] = $managerId;
            }*/
-
 
         return $this->service->createSupermarket($data);
     }
@@ -117,7 +117,8 @@ class SupermarketController extends Controller
 
         return $this->success("CSV data has been queued for processing.");
 
-
     }
+
+
 
 }
