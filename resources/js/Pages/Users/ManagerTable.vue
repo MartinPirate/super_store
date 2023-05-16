@@ -9,8 +9,6 @@ defineProps({
 });
 
 
-
-
 </script>
 
 <template>
@@ -154,8 +152,9 @@ defineProps({
                                     Update
                                 </button>
 
+
                                 <button type="button" id="uploadSuppliersButton"
-                                        @click="addEnployees(item.id)"
+                                        @click="uploadEmployees(item.id)"
                                         class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300">
                                     <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
                                          xmlns="http://www.w3.org/2000/svg">
@@ -165,8 +164,9 @@ defineProps({
                                               d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
                                               clip-rule="evenodd"></path>
                                     </svg>
-                                    Upload Suppliers
+                                    Upload Employees
                                 </button>
+
 
                                 <button type="button" id="deleteProductButton"
                                         data-drawer-target="drawer-delete-product-default"

@@ -1,11 +1,10 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import Table from "@/Pages/Users/Table.vue";
 import {Head} from "@inertiajs/vue3";
 import {storeToRefs} from "pinia";
 import {useUsersStore} from "@/Store/UsersStore.js";
 import {computed} from "vue";
-import Managers from "@/Pages/Users/Managers.vue";
+import ManagerTable from "@/Pages/Users/ManagerTable.vue";
 
 const title = "Managers"
 const {users} = storeToRefs(useUsersStore());
@@ -28,7 +27,7 @@ const filteredUsers = computed(() => {
 
     <AuthenticatedLayout>
 
-        <Table :user-type="title" :users="filteredUsers"/>
+        <ManagerTable :user-type="title" :users="filteredUsers"/>
 
 
     </AuthenticatedLayout>
