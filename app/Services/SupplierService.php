@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repository\SupplierRepository;
+use Illuminate\Http\JsonResponse;
 
 class SupplierService
 {
@@ -15,7 +16,7 @@ class SupplierService
 
     }
 
-    public function uploadSuppliers(int $id, $file)
+    public function uploadSuppliers(int $id, $file): JsonResponse
     {
         return $this->repo->uploadSuppliers($id, $file);
     }

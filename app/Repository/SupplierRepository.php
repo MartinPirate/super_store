@@ -16,7 +16,9 @@ class SupplierRepository implements SupplierRepositoryInterface
     public function uploadSuppliers(int $supermarketId, $suppliersCSV): JsonResponse
     {
 
-        SimpleExcelReader::create($suppliersCSV, "csv")
+        $file = storage_path('app/' . $suppliersCSV);
+
+        SimpleExcelReader::create($file, "csv")
             ->useHeaders([
                 'Name' => 'name',
                 'Phone' => 'phone',
@@ -26,7 +28,7 @@ class SupplierRepository implements SupplierRepositoryInterface
             ->each(function (array $rowProperties) use ($supermarketId) {
                 $this->saveSuppliers($rowProperties, $supermarketId);
             });
-        return $this->success("CSV uploaded successfully");
+        return $this->success("CSV data has been uploaded and queued for processing.");
     }
 
     private function saveSuppliers($row, $id): void
