@@ -8,6 +8,9 @@ use App\Models\User;
 use App\Trait\ApiResponse;
 use App\Transformers\SupermarketTransformer;
 use Doctrine\DBAL\Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use phpDocumentor\Reflection\Location;
@@ -18,26 +21,20 @@ class SupermarketRepository implements SupermarketRepositoryInterface
 
     /**
      * Get a List of Supermarkets
-     * @return JsonResponse
+     * @return Collection
      */
-    public function getList(): JsonResponse
+    public function getList(): Collection
     {
 
-        $superMarkets = Supermarket::all();
-
-        return fractal()
-            ->collection($superMarkets, new SupermarketTransformer())
-            ->respond(200, [], JSON_PRETTY_PRINT);
-
-
+        return Supermarket::all();
     }
 
     /**
      * Get Supermarket By Id
      * @param int $id
-     * @return JsonResponse
+     * @return Supermarket
      */
-    public function getSupermarketById(int $id): JsonResponse
+    public function getSupermarketById(int $id): Supermarket
     {
         try {
             $supermarket = Supermarket::whereId($id)->first();
@@ -46,37 +43,32 @@ class SupermarketRepository implements SupermarketRepositoryInterface
             return $this->error("Supermarket Not Found", 404);
         }
 
-        return fractal()
-            ->parseIncludes(['employees', 'suppliers'])
-            ->item($supermarket, new SupermarketTransformer)
-            ->respond(200, [], JSON_PRETTY_PRINT);
-
+        return $supermarket;
 
     }
 
     /**
-     * Creaete a Supermarket
+     * Create a Supermarket
      * @param array $supermarketData
-     * @return JsonResponse
+     * @return Supermarket
      */
-    public function storeSuperMarket(array $supermarketData): JsonResponse
+    public function storeSuperMarket(array $supermarketData): Supermarket
     {
-        // $managerId = $supermarketData['manager_id'];
-
         try {
             $supermarket = Supermarket::create($supermarketData);
 
         } catch (Exception $exception) {
             return $this->error($exception->getMessage(), $exception->getCode());
         }
-        /*  if ($managerId) {
+        /*
+         *    $managerId = $supermarketData['manager_id'];
+         if ($managerId) {
               $this->setManager($supermarket->id, $managerId);
 
           }*/
 
-        return fractal()
-            ->item($supermarket, new SupermarketTransformer)
-            ->respond(200, [], JSON_PRETTY_PRINT);
+
+        return $supermarket;
 
     }
 

@@ -42,6 +42,7 @@ class Supermarket extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'name',
         'location_id'

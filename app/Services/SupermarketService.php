@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repository\SupermarketRepository;
+use App\Transformers\SupermarketTransformer;
 use Illuminate\Http\JsonResponse;
 
 class SupermarketService
@@ -20,7 +21,11 @@ class SupermarketService
      */
     public function getSupermarkets(): JsonResponse
     {
-        return $this->supermarketRepository->getList();
+        $superMarkets = $this->supermarketRepository->getList();
+
+        return fractal()
+            ->collection($superMarkets, new SupermarketTransformer())
+            ->respond(200, [], JSON_PRETTY_PRINT);
     }
 
     /**
@@ -30,7 +35,12 @@ class SupermarketService
      */
     public function createSupermarket($supermarketData): JsonResponse
     {
-        return $this->supermarketRepository->storeSuperMarket($supermarketData);
+
+        $supermarket =  $this->supermarketRepository->storeSuperMarket($supermarketData);
+
+        return fractal()
+            ->item($supermarket, new SupermarketTransformer)
+            ->respond(200, [], JSON_PRETTY_PRINT);
     }
 
     /**
@@ -40,7 +50,12 @@ class SupermarketService
      */
     public function getSupermarketById(int $id): JsonResponse
     {
-        return $this->supermarketRepository->getSupermarketById($id);
+        $supermarket = $this->supermarketRepository->getSupermarketById($id);
+
+        return fractal()
+            ->parseIncludes(['employees', 'suppliers'])
+            ->item($supermarket, new SupermarketTransformer)
+            ->respond(200, [], JSON_PRETTY_PRINT);
     }
 
     /**

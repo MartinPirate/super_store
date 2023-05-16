@@ -2,16 +2,19 @@
 
 namespace App\Interfaces;
 
+use App\Models\Supermarket;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Database\Eloquent\Collection;
+
 
 interface SupermarketRepositoryInterface
 {
 
-    public function getList(): JsonResponse;
+    public function getList(): Collection;
 
-    public function getSupermarketById(int $id): JsonResponse;
+    public function getSupermarketById(int $id): Supermarket;
 
-    public function storeSuperMarket(array $supermarketData): JsonResponse;
+    public function storeSuperMarket(array $supermarketData): Supermarket;
 
     public function updateSuperMarket(array $supermarketData, int $supermarketId) : JsonResponse;
 
