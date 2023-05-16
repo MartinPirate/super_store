@@ -149,10 +149,7 @@ export const useSupermarketStore = defineStore('supermarkets', {
 
                 }).then((response) => {
 
-                    console.log(response)
-
                     if (response.status === 200) {
-                        //alert
                         Swal.fire("Success", "Suppliers Uploaded Successfully", "success");
 
                     } else {

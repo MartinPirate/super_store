@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupermarketController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -40,3 +41,8 @@ require __DIR__.'/auth.php';
 
 
 Route::get('/supermarkets', [SupermarketController::class, 'index'])->name('supermarket.get');
+
+
+Route::get('/managers', [UsersController::class, 'managers'])->name('users.managers');
+Route::get('/backoffice', [UsersController::class, 'backoffice'])->name('users.managers');
+Route::get('/cashiers', [UsersController::class, 'cashiers'])->name('users.managers');
